@@ -1,8 +1,12 @@
 import requests
 from bs4 import BeautifulSoup
 import sys
+import openai
 
+# example URL: 
 # https://www.reddit.com/r/StardewValley/comments/hudgy3/who_is_the_best_and_worst_characters_in_stardew/
+
+TIMESTAMP_STRING_LENGTH = 10 # format: MM-DD-YYYY
 
 def score_post(url):
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"}
@@ -17,24 +21,27 @@ def score_post(url):
 
     soup = BeautifulSoup(html_content, "html.parser")
     post_info = soup.find("shreddit-post")
-    # Find all post containers
+    # comments = soup.find_all("shrddit-comment")
+
     p_elements = soup.find_all("p")
-    author_username = post_info['author']
-    post_link = post_info['content-href']
-    post_comment_count = post_info['comment-count']
-    post_upvote_count = post_info['score']
-    post_timestamp = soup.find("faceplate-timeago")['ts'][:10]
 
     full_text = ''
     for paragraph in p_elements:
         full_text += paragraph.text 
+
+    author_username = post_info['author']
+    post_link = post_info['content-href']
+    post_comment_count = post_info['comment-count']
+    post_upvote_count = post_info['score']
+    post_timestamp = soup.find("faceplate-timeago")['ts'][:TIMESTAMP_STRING_LENGTH]
+
 
     info_dictionary = { 'date': post_timestamp, 
                         'upvotes': post_upvote_count, 
                         'comment_count': post_comment_count,
                         'author': author_username, 
                         'link': post_link, 
-                        'text':full_text}
+                        'text':full_text }
     print(info_dictionary)
     return info_dictionary
 
