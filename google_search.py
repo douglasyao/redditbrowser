@@ -1,8 +1,11 @@
 from googleapiclient.discovery import build
 import pprint
+from parse_post import create_post_from_url
+import sys
 
-my_api_key = "AIzaSyBGXiKCSjjIxnNTCz7zroVy1hr57xUb2HQ"
-my_cse_id = "e19eea81c943046e2"
+
+# ADD API KEY HERE my api key
+# my cse id 
 num_results = 10
 
 def google_search(search_term, api_key, cse_id, **kwargs):
@@ -11,4 +14,16 @@ def google_search(search_term, api_key, cse_id, **kwargs):
     res = [x['link'] for x in res['items']]
     return res
 
-results = google_search('best sushi restaurants nyc', my_api_key, my_cse_id, num=num_results)
+def get_posts_from_prompt(prompt):
+    posts = []
+    post_urls = google_search(prompt, my_api_key, my_cse_id, num=num_results)
+    for post_url in post_urls:
+        post = create_post_from_url(post_url)
+        posts.append(post)
+    return posts
+
+if __name__ == "__main__":
+    if (len(sys.argv) == 2):
+        prompt = sys.argv[1]
+        posts = get_posts_from_prompt(prompt)
+        print(posts)
