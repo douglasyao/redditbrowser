@@ -35,12 +35,3 @@ def create_post_from_url(url):
     post = Post(text=full_text, author=author_username, link=post_link,
                 date=post_timestamp, num_upvotes=post_upvote_count, num_comments=post_comment_count)
     return post
-
-
-# if __name__ == "__main__":
-#     if (len(sys.argv) == 2):
-#         #TODO handle prompt
-#         url = sys.argv[1]
-#         score_post(url)
-#     else:
-#         score_post("https://www.reddit.com/r/SkincareAddiction/comments/ibnor5/review_cosrx_snail_mucin_essence_lives_up_to_the/")

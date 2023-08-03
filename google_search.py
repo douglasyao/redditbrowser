@@ -2,10 +2,8 @@ from googleapiclient.discovery import build
 import pprint
 from parse_post import create_post_from_url
 import sys
+from config import * 
 
-
-# ADD API KEY HERE my api key
-# my cse id 
 num_results = 10
 
 def google_search(search_term, api_key, cse_id, **kwargs):
@@ -16,7 +14,7 @@ def google_search(search_term, api_key, cse_id, **kwargs):
 
 def get_posts_from_prompt(prompt):
     posts = []
-    post_urls = google_search(prompt, my_api_key, my_cse_id, num=num_results)
+    post_urls = google_search(prompt, GOOGLE_API_KEY, GOOGLE_CSE_ID, num=num_results)
     for post_url in post_urls:
         post = create_post_from_url(post_url)
         posts.append(post)
