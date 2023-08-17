@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ask me to ask Reddit</title>
+</head>
+<body>
+    <h1>ask me something... and I'll see what the reddit folk think...</h1>
+    <form action="/process" method="post">
+        <input type="text" name="user_input">
+        <button type="submit">Submit</button>
+    </form>
+    {% if result %}
+    <div>
+        <p>You searched for {{user_input}}. Here's what I think from reddit...</p>
+        <p> {{result}}</p>
+        <ol>
+            {% for post in post_texts %}
+                <li>{{ post }}</li>
+            {% endfor %}
+        </ol>
+    </div>
+    {% endif %}
+</body>
+</html>
