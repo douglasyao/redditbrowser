@@ -2,6 +2,8 @@
 ```
 pip3 install google-api-python-client
 pip3 install requests beautifulsoup4
+pip3 install flask
+
 ```
 run this in your terminal
 ```
