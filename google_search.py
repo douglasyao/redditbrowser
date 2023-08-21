@@ -38,7 +38,6 @@ def generate_summary_from_posts(posts, prompt):
     print("response:\n", response)
     # Extract the response from the API call
     chat_gpt_response = response.choices[0].text.strip()
-    print(chat_gpt_response)
     return chat_gpt_response
 
 
